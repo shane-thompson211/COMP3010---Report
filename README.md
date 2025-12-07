@@ -9,3 +9,13 @@ This report documents an investigation into a fictitious brewing company, Frothl
 The main goal is to utilise Splunk Enterprise, a security information and event management tool (SIEM), to ingest, index, and analyse security logs to find what has been compromised. The other objective is to find how the attack occurred and provide recommendations to strengthen Frothly’s security so further breaches cannot occur.
 
 The scope of this report will focus on AWS CloudTrail logs, S3 access logs, endpoint logs, and the Windows source type. These will be used to search through the BOTSv3 dataset and identify any IAM anomalies, rogue devices, MFA violations, and altered access controls. The analysis is limited to the selected BOTSv3 200-level guided questions and does not attempt to find the full attack. It is assumed that the analysis is performed on a fully isolated virtual machine to maintain separation from the host machine and protect its integrity.
+
+SOC Roles & Incident Handling Reflection
+
+A Security Operations Centre (SOC) helps protect organisations by continuously monitoring, detecting, analysing, and responding to cyber incidents and threats. In the context of the Frothly BOTSv3 scenario the hierarchical roles are as follows:
+
+The first line of defence is the tier 1 analyst role and has the responsibility of monitoring the SIEM for alerts. In this investigation a tier 1 analyst would have been responsible for finding the initial MFA violations and identifying the user responsible “bstoll”. If any suspicious activity is found then a set procedure will be followed, and threats will be escalated to tier 2.
+
+The tier 2 analyst dives deeper into the threats escalated to determine the scope of the breach. For the Frothly organisation it would involve investigating the CloudTrail logs and locating the endpoint linked to the compromised “bstoll” account. This stage focuses on the response rathe than pure detection. Containment actions such as isolating rouge devices and suspending the compromised user.
+
+Tier 3 focusses on prevention and the root cause analysis. Outside of an active incident a tier 3 analyst would hunt for security breaches like the initiated file upload from the public S3 bucket. Additionally, this analyst would guide the path to recovery by implementing system wide improvements such as enforcing MFA and restricted IAM privileges for authorised users only.
