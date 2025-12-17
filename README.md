@@ -19,3 +19,12 @@ The first line of defence is the tier 1 analyst role and has the responsibility 
 The tier 2 analyst dives deeper into the threats escalated to determine the scope of the breach. For the Frothly organisation it would involve investigating the CloudTrail logs and locating the endpoint linked to the compromised “bstoll” account. This stage focuses on the response rathe than pure detection. Containment actions such as isolating rouge devices and suspending the compromised user.
 
 Tier 3 focusses on prevention and the root cause analysis. Outside of an active incident a tier 3 analyst would hunt for security breaches like the initiated file upload from the public S3 bucket. Additionally, this analyst would guide the path to recovery by implementing system wide improvements such as enforcing MFA and restricted IAM privileges for authorised users only.
+
+Installation & Data Preparation
+The investigation environment created using Splunk Enterprise and an Ubuntu Virtual Machine (VM). A VM was utilised to provide a secure environment separate from my host machine. Isolating environments when testing potentially dangerous datasets like BOTSv3 adheres to industry standard practices.
+
+To prepare the host, the command apt update && apt upgrade were used to ensure the latest packages were installed. This ensures the OS is protected against known vulnerabilities. Splunk Enterprise were retrieved via the command line (wget) and installed into the /opt directory. Splunk was started from inside the /bin/splunk start while also agreeing to licence agreement. This opened the Splunk interface on port 8000.
+
+The BOTSv3 dataset was retrieved from the GitHub repo and downloaded and extracted into the Downloads folder. The session in the terminal was elevated to admin privileges using sudo su. The cp (copy) command with the recursive flag (-r) were utilised to duplicate the extracted folder directly into the /opt/splunk/etc/apps directory. By doing this it protects the file’s structure to ensure the dataset loads correctly.
+
+To test if the data can be accessed inside Splunk, the web interface was accessed by using the credentials created via the installation of Splunk. To verify the integrity of the ingestion, the search and reporting app was queried with index=botsv3. This successfully returned 2,083,056 events which confirms the SIEM is ready for analysis.
