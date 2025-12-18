@@ -28,3 +28,19 @@ To prepare the host, the command apt update && apt upgrade were used to ensure t
 The BOTSv3 dataset was retrieved from the GitHub repo and downloaded and extracted into the Downloads folder. The session in the terminal was elevated to admin privileges using sudo su. The cp (copy) command with the recursive flag (-r) were utilised to duplicate the extracted folder directly into the /opt/splunk/etc/apps directory. By doing this it protects the file’s structure to ensure the dataset loads correctly.
 
 To test if the data can be accessed inside Splunk, the web interface was accessed by using the credentials created via the installation of Splunk. To verify the integrity of the ingestion, the search and reporting app was queried with index=botsv3. This successfully returned 2,083,056 events which confirms the SIEM is ready for analysis.
+
+Q1 – IAM user identification
+
+Answer: 
+•	bstoll
+•	btun
+•	splunk_access
+•	web_admin
+
+SPL Query:
+index=botsv3 sourcetype="aws:cloudtrail" | stats count by userIdentity.userName
+
+SOC Analysis: 
+A tier 1 SOC analyst will see the results from the query and must differentiate between service accounts and human users. Both “splunk_access” and “web_admin” seem to be obvious service accounts while “bstoll” has very high activity at (615 events) compared to “btun” at (73 events). This activity will require further investigation by a tier 2 analyst where deeper inspection of each user accounts activity. If suspicious activity is found like compromised credentials or unusual behaviour, then the user can be disabled.
+
+Q2- multi-factor-authentication
