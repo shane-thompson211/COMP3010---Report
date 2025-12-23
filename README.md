@@ -44,3 +44,24 @@ SOC Analysis:
 A tier 1 SOC analyst will see the results from the query and must differentiate between service accounts and human users. Both “splunk_access” and “web_admin” seem to be obvious service accounts while “bstoll” has very high activity at (615 events) compared to “btun” at (73 events). This activity will require further investigation by a tier 2 analyst where deeper inspection of each user accounts activity. If suspicious activity is found like compromised credentials or unusual behaviour, then the user can be disabled.
 
 Q2- multi-factor-authentication
+
+Answer: 
+•	userIdentity.sessionContext.attributes.mfaAuthenticated
+
+SPL Query:
+index=botsv3 sourcetype="aws:cloudtrail" | table _time userIdentity.userName eventName userIdentity.sessionContext.attributes.mfaAuthenticated | dedup userIdentity.userName
+
+SOC Analysis:
+Operations performed without MFA significantly increase the chances of credential theft and unauthorised access. A tier 1 analysis will see the false flag from these users and regard them as suspicious and require further analysis. Deeper inspection will be done by a tier 2 analyst where login times, location and failed login attempts will be investigated. If malicious activity is found such as unauthorised file uploads, then tier 3 escalation is invoked to enforce mandatory MFA and update detection rules system wide.
+
+Q3 – Processor Number used 
+
+Answer: 
+•	E5-2676
+o	Full CPU - Intel(R) Xeon(R) CPU E5-2676 v3 @ 2.40GHz
+
+SPL Query:
+Index=botsv3 sourcetype=hardware
+
+SOC Analysis:
+Monitoring hardware for inventory management is a crucial part of SOC operations. A tier 1 analyst will actively monitor the network to ensure that only authorised devices are present. If the entire system uses E5-2676 processors then it may not be suspicious however if a rouge system is found, then it can be immediately escalated to tier 2. If the suspect doesn’t have the correct authorisation, then the system must be blocked from the network. 
