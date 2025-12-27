@@ -65,3 +65,18 @@ Index=botsv3 sourcetype=hardware
 
 SOC Analysis:
 Monitoring hardware for inventory management is a crucial part of SOC operations. A tier 1 analyst will actively monitor the network to ensure that only authorised devices are present. If the entire system uses E5-2676 processors then it may not be suspicious however if a rouge system is found, then it can be immediately escalated to tier 2. If the suspect doesn’t have the correct authorisation, then the system must be blocked from the network. 
+
+Q4, 5, 6
+
+Answers: 
+
+Q4 – EventID = ab45689d-69cd-41e7-8705-5350402cf7ac
+
+Q5 – Bud’s Username = bstoll
+
+Q6 – S3 Bucket = frothlywebcode
+SPL Query:
+index=botsv3 sourcetype="aws:cloudtrail" eventName="PutBucketAcl" AllUsers
+
+SOC Analysis:
+The PutBucketAcl event being made public to allow all users access represents a major security flaw and data leak. If a tier 1 analyst recognises this it would be an immediate escalation as containment is paramount in blocking the leak. A tier 2 analyst would be required to further analyse when the exposure began which would point the eventID, the user “bstoll” and the bucket name frothlywebcode. Tier 3 analysis would be implementing changes for automated alerts to detect ACL changes so situations like this don’t happen again.
