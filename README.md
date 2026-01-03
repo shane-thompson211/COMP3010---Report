@@ -80,3 +80,25 @@ index=botsv3 sourcetype="aws:cloudtrail" eventName="PutBucketAcl" AllUsers
 
 SOC Analysis:
 The PutBucketAcl event being made public to allow all users access represents a major security flaw and data leak. If a tier 1 analyst recognises this it would be an immediate escalation as containment is paramount in blocking the leak. A tier 2 analyst would be required to further analyse when the exposure began which would point the eventID, the user “bstoll” and the bucket name frothlywebcode. Tier 3 analysis would be implementing changes for automated alerts to detect ACL changes so situations like this don’t happen again.
+
+Q7- Malicious File Upload
+
+Answer: OPEN_BUCKET_PLEASE_FIX.txt
+
+SPL Query:
+index=botsv3 sourcetype="aws:s3:accesslogs" "frothlywebcode" "*.txt" "REST.PUT.OBJECT"
+
+SOC Analysis:
+Finding that a non-MFA user “bstoll” successfully initiated a file upload for OPEN_BUCKET_PLEASE_FIX.txt confirms that bucket was breached. Even without knowing the contents of the file it must be treated as potential malware. Escalation to tier 2 for immediate contamination and malware analysis to find out the contents of the file. The role for the tier 3 analyst would be to review IAM policies so that ‘PutObject’ permissions are restricted for authorised users only.
+
+Q8 – Endpoint Anomaly
+
+Answer: 
+•	BSTOLL-L
+
+SPL Query:
+index=botsv3 sourcetype="winhostmon" Type="OperatingSystem" | dedup OS
+
+SOC Analysis:
+If the SOC has baseline operating system for all endpoints, then a tier 1 analyst would be able to detect any anomalies. The anomaly in question is Windows 10 Enterprise which goes against the baseline OS. The response would be an immediate tier 2 escalation and containment to prevent any lateral movement. The malicious endpoint is linked to the suspected user “bstol” which makes containment even more important. The tier 3 analyst must analyse the entire system to see how a rouge system managed to connect to the network. Additionally, the tier 3 analyst needs to provide security checks for any new device trying to connect to the network.
+
