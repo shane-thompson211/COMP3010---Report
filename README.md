@@ -30,6 +30,8 @@ To test if the data can be accessed inside Splunk, the web interface was accesse
 
 ## Results & Analysis
 
+> **Evidence:** Supporting screenshots for Splunk installation, dataset ingestion, and each guided question are provided in the `/Screenshots` directory.
+
 ### Q1 – IAM User Identification
 
 **Answer:**
