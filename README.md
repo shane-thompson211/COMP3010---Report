@@ -139,4 +139,6 @@ To prevent future incidents like this the organisation must move from manual mon
 
 ## AI Declaration
 
-This assessment was completed in accordance with the University guidelines on the responsible use of Generative AI tools. A completed *Student Declaration of AI Tool Use in this Assessment* has been provided as part of the submission.
+A completed **Student Declaration of AI Tool Use in this Assessment** is provided here:  
+[View AI Declaration](./AI%20Declaration%20COMP3010%20-%20Report.pdf)
+
