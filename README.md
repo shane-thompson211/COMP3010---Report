@@ -1,5 +1,10 @@
 # COMP3010---Report
 
+## Video Demonstration
+
+▶️ **YouTube walkthrough (≤10 minutes):**  
+[Watch the video](https://youtu.be/EhfLjjZfRAg)
+
 ## Introduction
 
 A Security Operations Centre (SOC) is the central defence hub for modern organisations. It operates by mitigating, identifying, and detecting cyber threats before they can cause harm. A well-structured SOC integrates technologies, processes, and people to identify threats and limit potential damage before incidents escalate. This report documents an investigation into a fictitious brewing company, *Frothly*, that has been impacted by various cyber-attacks. To simulate a realistic SOC environment, the Boss of the SOC v3 (BOTSv3) dataset is used [1], [2].
